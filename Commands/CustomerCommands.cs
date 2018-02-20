@@ -1,7 +1,7 @@
 using System;
 using reactApp.Contracts;
 
-namespace reactApp.CommandSpace
+namespace reactApp
 {
     public class Command: Message 
     {

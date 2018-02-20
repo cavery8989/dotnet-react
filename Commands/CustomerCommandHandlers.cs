@@ -1,6 +1,6 @@
 using reactApp.Domain;
 
-namespace reactApp.CommandSpace
+namespace reactApp
 {
     public class CustomerCommandHandlers
     {

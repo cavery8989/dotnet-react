@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using reactApp.Commands;
 using reactApp.Contracts;
 using reactApp.Events;
 
@@ -26,7 +25,7 @@ namespace reactApp.Bus
         {
             List<Action<Message>> handlers;
 
-            if(!_routes.TryGetValue(typeof(T), out handlers))
+            if(_routes.TryGetValue(typeof(T), out handlers))
             {
                 if(handlers.Count != 1) throw new InvalidOperationException("Can't send command to more than one handler");
                 handlers[0](command);

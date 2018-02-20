@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using reactApp.Contracts;
 using reactApp.Repository;
 using reactApp.Bus;
-using reactApp.CommandSpace;
 
 namespace reactApp
 {

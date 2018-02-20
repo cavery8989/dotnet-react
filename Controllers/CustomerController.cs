@@ -1,3 +1,4 @@
+using System;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -10,15 +11,15 @@ namespace reactApp.Controllers {
     [Route("api/[controller]")]
     public class CustomerController: Controller {
         private readonly IConfiguration config;
-        private readonly ICustomerRepository customerRepository;
-        public CustomerController (IConfiguration config, ICustomerRepository customerRepo) {
+        private readonly IServiceBus bus;
+        public CustomerController (IConfiguration config, IServiceBus bus) {
             this.config = config;
-            this.customerRepository = customerRepo;
+            this.bus = bus;
         }
         [HttpPost("[action]")]
         public IActionResult CreateCustomer () {
-            string x = this.customerRepository.Test();
-            return Ok("got to create customer " + x);
+            bus.Send(new CreateCustomerCommand(Guid.NewGuid(), "Sian"));
+            return Ok("got to create customer ");
         } 
 
     }
