@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using reactApp.Contracts;
+using reactApp.Repository;
+using reactApp.Bus;
+using reactApp.CommandSpace;
 
 namespace reactApp
 {
@@ -23,6 +27,14 @@ namespace reactApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var bus = new ServiceBus();
+            var customerCommands = new CustomerCommandHandlers();
+            bus.RegisterHandler<CreateCustomerCommand>(customerCommands.Handle);
+
+            services.AddSingleton<IServiceBus>(bus);
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,11 +1,15 @@
 using System;
+using System.Collections.Generic;
+using reactApp.Events;
 
 namespace reactApp.Domain {
     public abstract class AggregateRoot {
 
-        private readonly Guid Id;
-        private readonly int version;
-        public abstract void Apply ();
+        private readonly List<Event> changes = new List<Event>();
+        public abstract Guid Id {get;}
+        public int Version {get; internal set;}
+
+        public abstract void Apply (Event @event);
 
 
     }
