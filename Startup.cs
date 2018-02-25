@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using reactApp.Contracts;
 using reactApp.Repository;
 using reactApp.Bus;
+using reactApp.Events;
 
 namespace reactApp
 {
@@ -35,6 +36,8 @@ namespace reactApp
             ServiceProvider sp = services.BuildServiceProvider();
             var customerCommands = new CustomerCommandHandlers(sp);
             bus.RegisterHandler<CreateCustomerCommand>(customerCommands.Handle);
+            var customerEvents = new CustomerEventHandlers(sp);
+            bus.RegisterHandler<CustomerCreated>(customerEvents.Handle);
 
         }
 

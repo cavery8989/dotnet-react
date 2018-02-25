@@ -43,10 +43,11 @@ namespace reactApp.Repository
             foreach (var e in events)
             {
                 version ++;
+                root.Version = version;
                 EventDescriptor ed = new EventDescriptor(root.Id, e, version);
-            }
 
-            throw new System.NotImplementedException();
+                bus.Publish(e);
+            }
         }
 
         public void Store(string streamId, Event @event)
