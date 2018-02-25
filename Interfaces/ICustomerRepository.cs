@@ -7,6 +7,8 @@ namespace reactApp.Contracts {
         Customer GetBy(string reference);
         Customer GetById(string id);
 
+        void Save(Customer customer);
+
         string Test();
 
 

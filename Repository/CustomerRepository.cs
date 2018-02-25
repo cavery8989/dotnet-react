@@ -7,8 +7,14 @@ using reactApp.Domain;
 namespace reactApp.Repository {
     public class CustomerRepository : Repository, ICustomerRepository
     {
-        public CustomerRepository(IConfiguration config) : base(config){}
+        private readonly IEventStore storage;
+        public CustomerRepository(IConfiguration config, IEventStore storage) : base(config){
+            this.storage = storage;
+        }
         
+        public void Save (Customer customer) {
+            this.storage.SaveEvents(customer, -1);
+        } 
 
         public IEnumerable<Customer> GetAll()
         {

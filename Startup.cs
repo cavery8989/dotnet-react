@@ -26,13 +26,15 @@ namespace reactApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var bus = new ServiceBus();
-            var customerCommands = new CustomerCommandHandlers();
-            bus.RegisterHandler<CreateCustomerCommand>(customerCommands.Handle);
-
-            services.AddSingleton<IServiceBus>(bus);
+            
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddTransient<IEventStore, EventStore>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            var bus = new ServiceBus();
+            services.AddSingleton<IServiceBus>(bus);
+            ServiceProvider sp = services.BuildServiceProvider();
+            var customerCommands = new CustomerCommandHandlers(sp);
+            bus.RegisterHandler<CreateCustomerCommand>(customerCommands.Handle);
 
         }
 

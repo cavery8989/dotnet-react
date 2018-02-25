@@ -10,8 +10,16 @@ namespace reactApp.Domain {
 
         public Customer (Guid id, string name) 
         {
-            this._id = id;
-            this.name = name;
+            ApplyChange(new CustomerCreated(id, name));
+        }
+
+        private void ApplyChange (Event @event) {
+            ApplyChange(@event, true);
+        }
+
+        private void ApplyChange (Event @event, bool isNew) {
+            Apply(@event);
+            AppendChange(@event);
         }
 
         public override Guid Id 
@@ -23,7 +31,14 @@ namespace reactApp.Domain {
 
         public override void Apply(Event @event)
         {
-            throw new System.NotImplementedException();
+            if(@event is CustomerCreated){
+                Apply(@event as CustomerCreated);
+            }
+        }
+
+        private void Apply(CustomerCreated @event) {
+            this._id = @event.Id;
+            this.name = @event.Name;
         }
     }
 }

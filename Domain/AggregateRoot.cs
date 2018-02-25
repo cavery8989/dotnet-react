@@ -11,6 +11,13 @@ namespace reactApp.Domain {
 
         public abstract void Apply (Event @event);
 
+        protected void AppendChange(Event @event) {
+            this.changes.Add(@event);
+        }
+
+        public IEnumerable<Event> GetChanges () {
+            return this.changes;
+        }
 
     }
 }

@@ -3,7 +3,15 @@ using reactApp.Contracts;
 
 namespace reactApp.Events {
     public class Event: Message {
-        public Guid Id {get; set;}
-        public DateTime OccurredAt = DateTime.UtcNow;
+        public int version;
+    }
+
+    public class CustomerCreated : Event {
+        public readonly Guid Id;
+        public readonly string Name;
+        public CustomerCreated (Guid id, string name) {
+            Id = id;
+            Name = name;
+        }
     }
 }
