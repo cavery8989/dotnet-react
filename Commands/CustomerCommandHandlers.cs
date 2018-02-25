@@ -17,9 +17,6 @@ namespace reactApp
             
             var customerRepo = serviceProvider.GetService<ICustomerRepository>();
             customerRepo.Save(customer);
-            
-            
-            // then save.
         }
     }
 }

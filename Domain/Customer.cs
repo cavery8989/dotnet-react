@@ -34,6 +34,7 @@ namespace reactApp.Domain {
             if(@event is CustomerCreated){
                 Apply(@event as CustomerCreated);
             }
+            
         }
 
         private void Apply(CustomerCreated @event) {

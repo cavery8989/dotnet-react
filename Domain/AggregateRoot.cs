@@ -16,7 +16,7 @@ namespace reactApp.Domain {
         }
 
         public IEnumerable<Event> GetChanges () {
-            return this.changes;
+            return this.changes.Count > 0 ? this.changes : null;
         }
 
     }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 using reactApp.Contracts;
 using reactApp.Domain;
 
@@ -32,20 +34,15 @@ namespace reactApp.Repository {
         }
 
         public string Test() {
-
-            SqlConnection conn = new SqlConnection(this.connectionString);
+            var connString = "Host=localhost;Username=postgres;Password=password1;Database=works-db";
+            NpgsqlConnection conn = new NpgsqlConnection(connString);
 
             conn.Open();
 
             string command = "SELECT * FROM [Events]";
-            using(SqlCommand cmd = new SqlCommand(command, conn)){
-                using(SqlDataReader reader = cmd.ExecuteReader()){
-                    if(reader != null) {
-                        while(reader.Read()) {
-                            reader.GetValue(1);
-                        }
-                    }
-                }
+            using(NpgsqlDataAdapter da = new NpgsqlDataAdapter(command, conn)){
+                    var ds = new DataSet();
+                    da.Fill(ds);
             }
 
             return "haats";
